@@ -1,9 +1,12 @@
 /*
-
     PROJETO VOCALIZADOR 
     JULIANA DE ALMEIDA E LEONARDO OLIVEIRA
-
 */
+#include <SD.h>                      // need to include the SD library
+#define SD_ChipSelectPin 4  //using digital pin 4 on arduino nano 328
+#include <TMRpcm.h>           //  also need to include this library...
+
+TMRpcm tmrpcm;   // create an object for use in this sketch
 
 //int voz = 19; 
 //Variaveis 
@@ -28,15 +31,9 @@ int led1 = 6;
 int led2 = 7; 
 int led3 = 8; 
 
-// Saida 9 é para o auto falante 
-// Saida 4 é para o cs do leitor de cartão sd 
-
-
 // the setup function runs once when you press reset or power the board
 void setup() {
   // Inicializando os pinos dos botões 
-  
-    //pinMode(voz, INPUT);
     pinMode(botao1, INPUT);
     pinMode(botao2, INPUT);
     pinMode(botao3, INPUT);
@@ -51,8 +48,15 @@ void setup() {
     pinMode(led1, OUTPUT);
     pinMode(led2, OUTPUT);
     pinMode(led3, OUTPUT);
+
+    //Configuração Auto falante
+    tmrpcm.speakerPin = 9; //11 on Mega, 9 on Uno, Nano, etc
+
+     if (!SD.begin(SD_ChipSelectPin)) {  // see if the card is present and can be initialized:
+      return;   // don't do anything more if not
+     }
+     tmrpcm.volume(1);
    
-    
     Serial.begin(9600);
 }
 
@@ -82,6 +86,7 @@ void ApagaTudo(){
     digitalWrite(led3, LOW); 
 }
 
+// ROTINA PRINCIPAL 
 void loop() {   
 
       //São 8 opções de botões a partir do botão 2 
@@ -95,6 +100,7 @@ void loop() {
                     Serial.println("Botão 2 Masculino");
                      
                     AcendeLed(led2);    //Ação do botão  
+                    tmrpcm.play("1.wav");
                     
                     delay(1000); 
                     while(LeBotao(botao2)) {}
@@ -104,7 +110,8 @@ void loop() {
                     Serial.println("Botão 3 Masculino");
                      
                     AcendeLed(led2);    //Ação do botão  
-                    
+
+                    tmrpcm.play("2.wav");
                     delay(1000); 
                     while(LeBotao(botao3)) {}
                 }
@@ -113,7 +120,8 @@ void loop() {
                     Serial.println("Botão 4 Masculino");
                      
                     AcendeLed(led2);    //Ação do botão  
-                    
+
+                    tmrpcm.play("3.wav");
                     delay(1000); 
                     while(LeBotao(botao4)) {}
                 }
@@ -122,7 +130,8 @@ void loop() {
                     Serial.println("Botão 5 Masculino");
                      
                     AcendeLed(led2);    //Ação do botão  
-                    
+
+                    tmrpcm.play("4.wav");
                     delay(1000); 
                     while(LeBotao(botao5)) {}
                 }
@@ -131,7 +140,8 @@ void loop() {
                     Serial.println("Botão 6 Masculino");
                      
                     AcendeLed(led2);    //Ação do botão  
-                    
+
+                    tmrpcm.play("5.wav");
                     delay(1000); 
                     while(LeBotao(botao6)) {}
                 }
@@ -140,7 +150,8 @@ void loop() {
                     Serial.println("Botão 7 Masculino");
                      
                     AcendeLed(led2);    //Ação do botão  
-                    
+
+                    tmrpcm.play("6.wav");
                     delay(1000); 
                     while(LeBotao(botao7)) {}
                 }
@@ -149,7 +160,8 @@ void loop() {
                     Serial.println("Botão 8 Masculino");
                      
                     AcendeLed(led2);    //Ação do botão  
-                    
+
+                    tmrpcm.play("7.wav");
                     delay(1000); 
                     while(LeBotao(botao8)) {}
                 }
@@ -158,7 +170,8 @@ void loop() {
                     Serial.println("Botão 9 Masculino");
                      
                     AcendeLed(led2);    //Ação do botão  
-                    
+
+                    tmrpcm.play("8.wav");
                     delay(1000); 
                     while(LeBotao(botao9)) {}
                 }
@@ -172,7 +185,8 @@ void loop() {
                     Serial.println("Botão 2 Feminino");
                      
                     AcendeLed(led3);    //Ação do botão  
-                    
+
+                    tmrpcm.play("1_f.wav");
                     delay(1000); 
                     while(LeBotao(botao2)) {}
                 }
@@ -181,7 +195,8 @@ void loop() {
                     Serial.println("Botão 3 Feminino");
                      
                     AcendeLed(led3);    //Ação do botão  
-                    
+
+                    tmrpcm.play("2_f.wav");
                     delay(1000); 
                     while(LeBotao(botao3)) {}
                 }
@@ -190,7 +205,8 @@ void loop() {
                     Serial.println("Botão 4 Feminino");
                      
                     AcendeLed(led3);    //Ação do botão  
-                    
+
+                    tmrpcm.play("3_f.wav");
                     delay(1000); 
                     while(LeBotao(botao4)) {}
                 }
@@ -199,7 +215,8 @@ void loop() {
                     Serial.println("Botão 5 Feminino");
                      
                     AcendeLed(led3);    //Ação do botão  
-                    
+
+                    tmrpcm.play("4_f.wav");
                     delay(1000); 
                     while(LeBotao(botao5)) {}
                 }
@@ -208,7 +225,8 @@ void loop() {
                     Serial.println("Botão 6 Feminino");
                      
                     AcendeLed(led3);    //Ação do botão  
-                    
+
+                    tmrpcm.play("5_f.wav");
                     delay(1000); 
                     while(LeBotao(botao6)) {}
                 }
@@ -217,7 +235,8 @@ void loop() {
                     Serial.println("Botão 7 Feminino");
                      
                     AcendeLed(led3);    //Ação do botão  
-                    
+
+                    tmrpcm.play("6_f.wav");
                     delay(1000); 
                     while(LeBotao(botao7)) {}
                 }
@@ -226,7 +245,8 @@ void loop() {
                     Serial.println("Botão 8 Feminino");
                      
                     AcendeLed(led3);    //Ação do botão  
-                    
+
+                    tmrpcm.play("7_f.wav");
                     delay(1000); 
                     while(LeBotao(botao8)) {}
                 }
@@ -235,7 +255,8 @@ void loop() {
                     Serial.println("Botão 9 Feminino");
                      
                     AcendeLed(led3);    //Ação do botão  
-                    
+
+                    tmrpcm.play("8_f.wav");
                     delay(1000); 
                     while(LeBotao(botao9)) {}
                 }
