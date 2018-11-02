@@ -50,14 +50,6 @@ void setup() {
     pinMode(Verde, OUTPUT); 
     pinMode(Vermelho, OUTPUT);
 
-    //Ligando para teste
-    digitalWrite(Verde, HIGH);
-    digitalWrite(Vermelho, LOW);
-    delay(2000); 
-    digitalWrite(Verde, LOW);
-    digitalWrite(Vermelho, HIGH);
-    delay(2000); 
-    
     //Configuração Auto falante
     tmrpcm.speakerPin = 9; //11 on Mega, 9 on Uno, Nano, etc
 
@@ -96,7 +88,7 @@ void LeitorBateria(){
       digitalWrite(Verde, LOW); 
       digitalWrite(Vermelho, HIGH); 
     }  
-}
+} 
 // ROTINA PRINCIPAL 
 void loop() {   
 
